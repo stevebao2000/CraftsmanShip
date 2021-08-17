@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">CraftsmanShip</string>
+    <string name="start_process">Start Process</string>
+    <string name="processing_data">Processing Data, please wait...</string>
+    <string name="click_ship_addr">Please click driver\'s name to find shipping address</string>
+    <string name="shipment_address">Shipment Address For:</string>
+    <string name="driver">Drivers:</string>
+    <string name="driver_assignments">Driver Assignments</string>
 </resources>

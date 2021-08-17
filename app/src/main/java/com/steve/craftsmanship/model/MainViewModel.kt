@@ -1,6 +1,8 @@
 package com.steve.craftsmanship.model
 
 import androidx.core.text.isDigitsOnly
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.steve.craftsmanship.util.Util
 import java.lang.Exception
@@ -12,6 +14,12 @@ class MainViewModel : ViewModel() {
     var driverToShipIndexList: MutableList<Int> = mutableListOf() // drivers to shipments index map
     var mSize : Int = 0  // matrix size
     var maxSum: Int = 0
+    private val driverNameLiveData = MutableLiveData<String>()
+    val driverName: LiveData<String> = driverNameLiveData
+
+    fun updateDriverName(name: String) {
+        driverNameLiveData.postValue(name)
+    }
 
     fun updateShipmentDriverSuitabilityScoreMatrix() {
         mSize = driverNames.size

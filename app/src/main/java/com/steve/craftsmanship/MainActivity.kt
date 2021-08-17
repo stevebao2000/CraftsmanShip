@@ -38,6 +38,9 @@ class MainActivity : AppCompatActivity(), OnItemClickListener {
         var processed = false
         mainViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 
+        mainViewModel.driverName.observe(this) {
+            result -> binding.driverName.text = result
+        }
         /**
          * In case of rotation screen, we do not need to process the data again. In the real product, we might think to
          * save the matrix to object or hard disk, as it takes such long time to calculate.
@@ -117,6 +120,8 @@ class MainActivity : AppCompatActivity(), OnItemClickListener {
         val addressIndex = mainViewModel.driverToShipIndexList.get(index)
         val address = mainViewModel.getShipmentAddress(addressIndex)
         binding.address.text = address
-        binding.driverName.text = view.text
+        mainViewModel.updateDriverName(view.text.toString())
+        // use livedata instead of following line since LiveData is more powerful.
+//        binding.driverName.text = view.text // this line works fine.
     }
 }

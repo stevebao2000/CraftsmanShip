@@ -39,44 +39,9 @@ class MainViewModel : ViewModel() {
         val array = IntArray(mSize) {0}
 
         for (j: Int in 0 until mSize)
-            array[j] = calculateSuitabilityScore(driverName, shipments.get(j))
+            array[j] = Util().calculateSuitabilityScore(driverName, shipments.get(j))
 
         return array
-    }
-
-    fun getStreetNameLength(address: String) : Int {
-        val addressArray = address.split(" ").toMutableList()
-
-        // remove street number first
-        if (addressArray[0].isDigitsOnly()) {
-            addressArray.removeFirst() // remove street number
-        }
-        // remove Suite number or apartment number if this is the case.
-        // the apt number or suite number could be "A", "B"..., not necessary digit numbers
-        val nextTolast = addressArray.get(addressArray.size-2)
-        if (nextTolast.compareTo("Apt.", true) == 0 || nextTolast.compareTo("Suite", true) == 0) {
-            addressArray.removeLast() // remove apartment or suite number
-            addressArray.removeLast() // remove "Apt." or "Suite"
-        }
-
-        return addressArray.joinToString(" ").length
-    }
-
-    // calculate suitability score based the instruction
-    fun calculateSuitabilityScore(name: String, shipAddress: String) : Int {
-        val driver = Driver(name)
-        val nameLen = name.length
-        val addressLen = getStreetNameLength(shipAddress)
-        var suitabilityScore = 0
-        if (Util().isEvenNumber(addressLen)) {
-            suitabilityScore = (driver.vowels * 1.5).toInt()
-        } else
-            suitabilityScore = driver.consonants
-
-        if (Util().hasCommonFactors(nameLen, addressLen))
-            suitabilityScore = (suitabilityScore * 1.5).toInt()
-
-        return suitabilityScore
     }
 
     fun getShipmentAddress(i: Int) : String {
